@@ -1,17 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import imgExampleProduto1 from "../../public/examplePacote2.png";
+import {Product} from "@/types/Interfaces";
 
-interface PropsCardProduto {
-  flag?: string;
-  name: string;
-  price: number;
-}
-
-export default function CardProduto(produto: PropsCardProduto) {
+export default function CardProduto(produto: Product) {
   return (
     <div className="w-[240px] border rounded-lg bg-white transition-all duration-200 hover:-translate-y-1">
-      <Link href={"/"}>
+      <Link href={"/produto/1"}>
         <span
           className={`block h-5 text-center text-sm font-semibold  rounded-t-lg ${
             produto.flag ? "bg-green-500" : "bg-white"
