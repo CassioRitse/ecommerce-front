@@ -34,10 +34,14 @@ export default function Produto(props: Product) {
               popularised in the 1960s
             </p>
           </div>
-          <div className="mt-8">
+          <div className="flex flex-col mt-8 gap-2">
             <Button
               title="Comprar"
               style="w-[240px] bg-gray-800 text-white"
+            ></Button>
+            <Button
+              title="Adicionar ao Carrinho"
+              style="w-[240px] bg-gray-200 text-black"
             ></Button>
           </div>
         </div>
