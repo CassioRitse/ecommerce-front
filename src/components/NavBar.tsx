@@ -1,10 +1,20 @@
+import useCart from "@/hooks/use-cart";
 import ItemMenu, { ItemMenuProps } from "./ItemMenu";
+import { useEffect, useState } from "react";
 
 interface NavBarProps {
   props?: Array<ItemMenuProps>;
 }
 
 export default function NavBar(props: NavBarProps) {
+  const [cartItems, setCartItems] = useState<number>(0);
+
+  const cart = useCart();
+
+  useEffect(() => {
+    setCartItems(cart.items.length);
+  }, [cart.items]);
+
   return (
     <nav className="flex items-center justify-between bg-white h-16 shadow-2xl p-2">
       <div>
@@ -12,7 +22,7 @@ export default function NavBar(props: NavBarProps) {
       </div>
       <ul className="flex gap-2">
         <ItemMenu title="Produtos" href="/" />
-        <ItemMenu title="Meu Carrinho" href="/" />
+        <ItemMenu title={"Meu Carrinho (" + cartItems + ")"} href="/cart" />
       </ul>
     </nav>
   );

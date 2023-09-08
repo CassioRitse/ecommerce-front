@@ -2,8 +2,22 @@ import Image from "next/image";
 import imgExampleProduto1 from "../../../public/examplePacote2.png";
 import Button from "@/components/Button";
 import { Product } from "@/types/Interfaces";
+import useCart from "@/hooks/use-cart";
 
 export default function Produto(props: Product) {
+  const cart = useCart();
+
+  const handleAddToCart = () => {
+    const data: Product = {
+      id: "dce7124-0d5d-443ddd-84f3-d2SDec141497d",
+      name: "Produto teste",
+      price: 15.0,
+      qnt: 1,
+    };
+
+    cart.addNewItem(data);
+  };
+
   return (
     <main>
       <div className="grid sm:grid-cols1 md:grid-cols-2 m-10">
@@ -40,6 +54,7 @@ export default function Produto(props: Product) {
               style="w-[240px] bg-gray-800 text-white"
             ></Button>
             <Button
+              onClick={handleAddToCart}
               title="Adicionar ao Carrinho"
               style="w-[240px] bg-gray-200 text-black"
             ></Button>
