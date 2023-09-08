@@ -15,11 +15,11 @@ export default function ItemTable(props: PropsItemTable) {
     <tr className="bg-white border-b hover:bg-gray-50">
       <th
         scope="row"
-        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+        className="px-3 py-3 font-medium text-gray-900 whitespace-nowrap"
       >
         {props.product.name}
       </th>
-      <td className="px-6 py-4">
+      <td className="px-3 py-3 ">
         <Button
           title="-"
           onClick={() => props.handlerOneLessItem(props.product.id)}
@@ -32,8 +32,8 @@ export default function ItemTable(props: PropsItemTable) {
           style="font-bold text-black ml-2"
         />
       </td>
-      <td className="px-6 py-4">${props.product.price}</td>
-      <td className="px-6 py-4 text-right">
+      <td className="px-3 py-3 ">${props.product.price}</td>
+      <td className="px-3 py-3  text-right">
         <Button
           onClick={() => props.handlerRemoveItem(props.product.id)}
           title="Remover"

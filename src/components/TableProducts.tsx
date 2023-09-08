@@ -16,7 +16,7 @@ export default function TableProducts(props: PropsTableProducts) {
               produto
             </th>
             <th scope="col" className="px-6 py-3">
-              Quantidade
+              Quantidades
             </th>
             <th scope="col" className="px-6 py-3">
               sub-valor

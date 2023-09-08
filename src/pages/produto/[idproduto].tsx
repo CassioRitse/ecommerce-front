@@ -7,7 +7,7 @@ import useCart from "@/hooks/use-cart";
 export default function Produto(props: Product) {
   const cart = useCart();
 
-  const handleAddToCart = () => {
+  const handlerAddToCart = () => {
     const data: Product = {
       id: "dce7124-0d5d-443ddd-84f3-d2SDec141497d",
       name: "Produto teste",
@@ -18,13 +18,25 @@ export default function Produto(props: Product) {
     cart.addNewItem(data);
   };
 
+  const handlerBuyProduct = () => {
+    const data: Product = {
+      id: "dce7124-0d5d-443ddd-84f3-d2SDec141497d",
+      name: "Produto teste",
+      price: 15.0,
+      qnt: 1,
+    };
+
+    location.href = "/cart";
+    cart.addNewItem(data);
+  };
+
   return (
     <main>
       <div className="grid sm:grid-cols1 md:grid-cols-2 m-10">
-        <div className="flex justify-end">
+        <div className="flex justify-center">
           <Image src={imgExampleProduto1} alt="Imagem do Produto" />
         </div>
-        <div className="flex flex-col ml-12 mt-6 items-center md:items-start">
+        <div className="flex flex-col items-center md:items-start">
           <h3 className="font-thin text-3xl mt-6">Nome do Produto</h3>
           <div className="mt-4">
             <p className="text-4xl font-thin text-start">R${3000}.00</p>
@@ -50,11 +62,12 @@ export default function Produto(props: Product) {
           </div>
           <div className="flex flex-col mt-8 gap-2">
             <Button
+              onClick={handlerBuyProduct}
               title="Comprar"
               style="w-[240px] bg-gray-800 text-white"
             ></Button>
             <Button
-              onClick={handleAddToCart}
+              onClick={handlerAddToCart}
               title="Adicionar ao Carrinho"
               style="w-[240px] bg-gray-200 text-black"
             ></Button>

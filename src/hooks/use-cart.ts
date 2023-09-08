@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 import { Product } from "@/types/Interfaces";
 import { UUID } from "crypto";
+import toast from "react-hot-toast";
 
 interface CartStore {
   items: Product[];
@@ -22,10 +23,10 @@ const useCart = create(
         const existingItem = currentItems.find((item) => item.id === data.id);
 
         if (existingItem) {
-          return alert("Item já está no carrinho");
+          return toast("Item já está no carrinho");
         }
         set({ items: [...get().items, data] });
-        return alert("Produto adicionado ao carrinho!");
+        return toast("Produto adicionado ao carrinho!");
       },
       OneMoreItem: (id: UUID) => {
         set((state) => {
