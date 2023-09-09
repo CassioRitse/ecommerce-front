@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import imgExampleProduto1 from "../../public/examplePacote2.png";
-import {Product} from "@/types/Interfaces";
+import { Product } from "@/types/Interfaces";
 
 export default function CardProduto(produto: Product) {
   return (
     <div className="w-[240px] border rounded-lg bg-white transition-all duration-200 hover:-translate-y-1">
-      <Link href={"/produto/1"}>
+      <Link href={`/produto/${produto.id}`}>
         <span
           className={`block h-5 text-center text-sm font-semibold  rounded-t-lg ${
             produto.flag ? "bg-green-500" : "bg-white"
@@ -21,7 +21,7 @@ export default function CardProduto(produto: Product) {
           <div className="border-solid border-t-2 border-gray-400 pt-4 mt-6">
             <p className="text-sm font-light">{produto.name}</p>
             <p className="text-3xl font-normal my-4 text-center">
-              R${produto.price}
+              R${produto.price.toFixed(2)}
             </p>
           </div>
         </div>

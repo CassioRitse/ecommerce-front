@@ -33,7 +33,7 @@ export default function TableProducts(props: PropsTableProducts) {
               Total
             </th>
             <td className="px-6 py-3">{props.qtn}</td>
-            <td className="px-6 py-3">{props.amount}</td>
+            <td className="px-6 py-3">{props.amount.toFixed(2)}</td>
             <td></td>
           </tr>
         </tfoot>

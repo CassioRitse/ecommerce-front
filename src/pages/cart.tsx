@@ -37,6 +37,13 @@ export default function Cart() {
     cart.removeItem(id);
   };
 
+  const amoutPurchase = cartItems.reduce(
+    (amount, item) => (amount += item.price * item.qnt),
+    0
+  );
+
+  const amoutItem = cartItems.reduce((amount, item) => (amount += item.qnt), 0);
+
   return (
     <main className="p-4 m-4 space-y-4 h-screen ">
       <div className="rounded-lg bg-white shadow-lg p-4">
@@ -45,10 +52,7 @@ export default function Cart() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         <div className="col-span-1 md:col-span-2">
           <TableProducts
-            amount={cartItems.reduce(
-              (amount, item) => amount + item.price * item.qnt,
-              0
-            )}
+            amount={amoutPurchase}
             qtn={cartItems.reduce((amount, item) => amount + item.qnt, 0)}
           >
             {cartItems.map((item) => (
@@ -58,24 +62,18 @@ export default function Cart() {
                 handlerOneLessItem={hanldeOneLessItem}
                 key={item.id}
                 product={item}
-                qnt={item.qnt}
               ></ItemTable>
             ))}
           </TableProducts>
         </div>
         <div className="col-span-1 justify-end rounded-lg bg-white shadow-lg p-4">
           <p className="text-xl font-medium">Meu Pedido:</p>
-          <p className="text-lg font-light">
-            Produtos: {cartItems.reduce((amount, item) => amount + item.qnt, 0)}
-          </p>
+          <p className="text-lg font-light">Produtos: {amoutItem}</p>
           <p className="text-lg font-light">Frete: 00.00</p>
           <p className="text-xl font-light">Desconto: 00.00</p>
           <p className="text-3xl font-normal my-4">
             Total:
-            {cartItems.reduce(
-              (amount, item) => amount + item.price * item.qnt,
-              0
-            )}
+            {amoutPurchase.toFixed(2)}
           </p>
           <div className="flex flex-row gap-4">
             <Button

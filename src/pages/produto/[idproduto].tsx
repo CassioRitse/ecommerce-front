@@ -3,31 +3,23 @@ import imgExampleProduto1 from "../../../public/examplePacote2.png";
 import Button from "@/components/Button";
 import { Product } from "@/types/Interfaces";
 import useCart from "@/hooks/use-cart";
+import { GetStaticPaths, GetStaticProps } from "next";
+import axios from "axios";
 
-export default function Produto(props: Product) {
+interface PropsProduto {
+  data: Product;
+}
+
+export default function Produto({ data }: PropsProduto) {
   const cart = useCart();
 
-  const handlerAddToCart = () => {
-    const data: Product = {
-      id: "dce7124-0d5d-443ddd-84f3-d2SDec141497d",
-      name: "Produto teste",
-      price: 15.0,
-      qnt: 1,
-    };
-
+  const handlerAddToCart = (data: Product) => {
     cart.addNewItem(data);
   };
 
-  const handlerBuyProduct = () => {
-    const data: Product = {
-      id: "dce7124-0d5d-443ddd-84f3-d2SDec141497d",
-      name: "Produto teste",
-      price: 15.0,
-      qnt: 1,
-    };
-
-    location.href = "/cart";
+  const handlerBuyProduct = (data: Product) => {
     cart.addNewItem(data);
+    location.href = "/cart";
   };
 
   return (
@@ -37,18 +29,20 @@ export default function Produto(props: Product) {
           <Image src={imgExampleProduto1} alt="Imagem do Produto" />
         </div>
         <div className="flex flex-col items-center md:items-start">
-          <h3 className="font-thin text-3xl mt-6">Nome do Produto</h3>
+          <h3 className="font-thin text-3xl mt-6">{data.name}</h3>
           <div className="mt-4">
-            <p className="text-4xl font-thin text-start">R${3000}.00</p>
+            <p className="text-4xl font-thin text-start">
+              R${data.price.toFixed(2)}
+            </p>
             <p className="text-md font-extralight">Em até 10x no Cartão</p>
           </div>
           <div className="mt-4">
             <span
               className={`block h-5 text-center text-sm font-semibold  rounded-t-lg ${
-                props.flag ? "bg-green-500" : "bg-white"
+                data.flag ? "bg-green-500" : "bg-white"
               }`}
             >
-              {props.flag}
+              {data.flag}
             </span>
             <p className="text-sm font-extralight">
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -62,12 +56,12 @@ export default function Produto(props: Product) {
           </div>
           <div className="flex flex-col mt-8 gap-2">
             <Button
-              onClick={handlerBuyProduct}
+              onClick={() => handlerBuyProduct(data)}
               title="Comprar"
               style="w-[240px] bg-gray-800 text-white"
             ></Button>
             <Button
-              onClick={handlerAddToCart}
+              onClick={() => handlerAddToCart(data)}
               title="Adicionar ao Carrinho"
               style="w-[240px] bg-gray-200 text-black"
             ></Button>
@@ -77,3 +71,28 @@ export default function Produto(props: Product) {
     </main>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = (await axios.get(`http://localhost:3333/products`)).data;
+
+  const paths = data.map((product: Product) => {
+    return {
+      params: { idproduto: product.id },
+    };
+  });
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<{
+  data: Product;
+}> = async (context) => {
+  const idProduct = context.params?.idproduto;
+
+  const data = (await axios.get(`http://localhost:3333/product/${idProduct}`))
+    .data;
+  return { props: { data } };
+};
