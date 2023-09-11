@@ -16,7 +16,7 @@ export default function NavBar(props: NavBarProps) {
   }, [cart.items]);
 
   return (
-    <nav className="flex items-center justify-between bg-white h-16 shadow-2xl p-2">
+    <nav className="flex items-center justify-between bg-white h-16 shadow-xl p-2">
       <div>
         <p className="text-black ml-4 cursor-pointer text-2xl">E-Commerce</p>
       </div>

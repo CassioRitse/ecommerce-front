@@ -5,7 +5,7 @@ import { Product } from "@/types/Interfaces";
 
 export default function CardProduto(produto: Product) {
   return (
-    <div className="w-[240px] border rounded-lg bg-white transition-all duration-200 hover:-translate-y-1">
+    <div className="w-[240px] border rounded-lg shadow-xl bg-white transition-all duration-200 hover:-translate-y-1">
       <Link href={`/produto/${produto.id}`}>
         <span
           className={`block h-5 text-center text-sm font-semibold  rounded-t-lg ${
