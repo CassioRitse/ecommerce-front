@@ -25,7 +25,7 @@ export default function FinalizePurchase() {
     setCartItems(cart.items);
   }, [cart.items]);
 
-  const formSubmit = async ({ email }: { email: string }) => {
+  const formSubmit = async (dataForm: any) => {
     toast("Já recebemos seu pedido, obrigado!😁");
 
     const productsInCart = cartItems.map((item) => ({
@@ -34,7 +34,7 @@ export default function FinalizePurchase() {
     }));
 
     const data = {
-      email,
+      email: dataForm.email,
       products: productsInCart,
     };
 
