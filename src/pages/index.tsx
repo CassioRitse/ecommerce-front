@@ -11,7 +11,6 @@ interface PropsHome {
 }
 
 export default function Home({ data }: PropsHome) {
-  console.log(data);
   return (
     <main className={`${inter.className}`}>
       <div className="p-4 m-4 space-y-2">
@@ -30,6 +29,5 @@ export const getServerSideProps: GetServerSideProps<{
   data: PropsHome;
 }> = async () => {
   const data = (await axios.get("http://localhost:3333/products")).data;
-
   return { props: { data } };
 };

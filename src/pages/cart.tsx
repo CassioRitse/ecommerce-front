@@ -18,23 +18,27 @@ export default function Cart() {
   }, [cart.items]);
 
   //limpa todo o carrinho
-  const hanldeCleanCart = () => {
+  const hanlderCleanCart = () => {
     cart.removeAll();
   };
 
   //Adiciona mais uma unidade de um produto existe no carrinho
-  const hanldeOneMoreItem = (id: UUID) => {
+  const hanlderOneMoreItem = (id: UUID) => {
     cart.OneMoreItem(id);
   };
 
   //Retira uma unidade de um produto existe no carrinho
-  const hanldeOneLessItem = (id: UUID) => {
+  const hanlderOneLessItem = (id: UUID) => {
     cart.OneLessItem(id);
   };
 
   //remove um item do carrinho
-  const hanldeRemoveItem = (id: UUID) => {
+  const hanlderRemoveItem = (id: UUID) => {
     cart.removeItem(id);
+  };
+
+  const handlerFinalizePurchase = () => {
+    location.href = "/finalizePurchase";
   };
 
   const amoutPurchase = cartItems.reduce(
@@ -51,15 +55,12 @@ export default function Cart() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
         <div className="col-span-1 md:col-span-2">
-          <TableProducts
-            amount={amoutPurchase}
-            qtn={cartItems.reduce((amount, item) => amount + item.qnt, 0)}
-          >
+          <TableProducts amount={amoutPurchase} qtn={amoutItem}>
             {cartItems.map((item) => (
               <ItemTable
-                handlerRemoveItem={hanldeRemoveItem}
-                handlerMoreItem={hanldeOneMoreItem}
-                handlerOneLessItem={hanldeOneLessItem}
+                handlerRemoveItem={hanlderRemoveItem}
+                handlerMoreItem={hanlderOneMoreItem}
+                handlerOneLessItem={hanlderOneLessItem}
                 key={item.id}
                 product={item}
               ></ItemTable>
@@ -77,11 +78,12 @@ export default function Cart() {
           </p>
           <div className="flex flex-row gap-4">
             <Button
+              onClick={handlerFinalizePurchase}
               title="Finalizar Compra"
               style="bg-black text-white"
             ></Button>
             <Button
-              onClick={hanldeCleanCart}
+              onClick={hanlderCleanCart}
               title="Limpar Carrinho"
               style="bg-transparent text-black"
             ></Button>
